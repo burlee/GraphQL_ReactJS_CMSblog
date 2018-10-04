@@ -1,0 +1,195 @@
+$first-color: #4c4c4c;
+$second-color: #4c4c4c;
+
+.PostModal{
+    width: 600px;
+    height: 200px;
+    box-shadow: 0px 0px 15px #4c4c4c;
+    border-radius: 1px;
+    display: flex;
+    margin-bottom: 10px;
+    animation: opacity;
+    animation-duration: .5s;
+    transition: all .2s ease-in-out;
+    &:hover{
+        box-shadow: 0px 0px 25px #4c4c4c;
+    }
+    .PostDetails{
+        display: flex;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background: #FFF;
+        overflow-y: auto;
+        z-index: 2;
+        overflow-x: auto;
+        animation: opacity;
+        animation-duration: .25s;
+        .PostDetails_1{
+            flex:1;
+            padding: 15px;
+            background: #454553;
+            color: #FFF;
+            position: relative;
+            box-shadow: 1px 0px 10px #4c4c4c;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            align-items: center;
+            animation: opacity;
+            animation-duration: .5s;
+            transition: .5s all ease-in-out;
+            h1{
+                font-weight: 300;
+                font-size: 24px;
+                text-align: center;
+            }
+        }
+        .PostDetails_2{
+            flex:2;
+            padding: 15px;
+            overflow-x: auto;
+            display: block;
+            a{
+                color: #4c4c4c;
+                text-decoration: none;
+                font-weight: bold;
+            }
+            img{
+                max-width: 100%;
+                margin: 0 auto;
+                display: block;
+            }
+            p{
+                text-align: justify;
+                font-size: 14px;
+                line-height: 1.65;
+                letter-spacing: 0.1px;
+            }
+            button{
+                font-size: 20px;
+                position: fixed;
+                bottom: 10px;
+                left: 10px;
+                background: none;
+                border: none;
+                outline: none;
+                color: #FFF;
+                border-radius: 1px;
+                width: 30px;
+                height: 30px;
+                cursor: pointer;
+            }
+            h1{
+                text-align: center;
+                cursor: pointer;
+                padding: 5px;
+                background: #ebebeb;
+                border-radius: 1px;
+                font-size: 14px;
+                font-weight: bold;
+                color: #4c4c4c;
+                margin-top: 10px;
+            }
+        }
+        h1{
+            font-weight: 400;
+        }
+        img{
+            max-width: 100px;
+        }
+    }
+    .PostButton{
+        background-image: linear-gradient(to bottom right, $first-color, $second-color);
+        height: 100%;
+        width: 100px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        i{
+            font-size: 40px;
+            color: #FFF;
+        }
+    }
+    .PostInformation{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-direction: column;
+        width: 100%;
+        box-sizing: border-box;
+        .PostMainInformation{
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            height: 80%;
+            align-items: center;
+            padding: 20px;
+            h1{
+                margin-top: 0px;
+            }
+            img{ 
+                max-width: 100px;
+            }
+        }
+        h1{
+            color: #4c4c4c;
+            font-weight: 500;
+            font-size: 18px;
+            margin-top: 50px;
+            text-align: center;
+        }
+        .SocialContainer{
+            display: flex;
+            justify-content: space-between;
+            flex-direction: row-reverse;
+            width: 100%;
+            animation: opacity;
+            animation-duration: 1.25s;
+            padding: 10px;
+            box-sizing: border-box;
+            background: transparent;
+            border-bottom-right-radius: 6px;
+            span{
+                font-size: 12px;
+                padding: 3px 10px;
+                border-radius: 3px;
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .PostModal {
+        width: 90%;
+        height: 50vh;
+        .PostDetails{
+            flex-direction: column;
+            .PostDetails_2{
+                button{
+                    background: #4c4c4c;
+                    border-radius: 1px;
+                }
+            }
+        }
+        .SocialContainer{
+            span{
+                display: flex;
+                align-items: center;
+                text-align: center;
+            }
+        }
+    }
+}
+
+@keyframes opacity { 
+    from { 
+        opacity: 0;
+    } to { 
+        opacity: 1;
+    }
+}
