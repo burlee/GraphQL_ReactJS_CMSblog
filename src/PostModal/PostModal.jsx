@@ -2,7 +2,9 @@ import React, { PureComponent } from 'react';
 import classes from './PostModal.scss';
 import { withRouter } from 'react-router-dom';
 import Markdown from 'markdown-to-jsx';
-import Gallery from './Gallery/Gallery'
+import Gallery from './Gallery/Gallery';
+import BlogTextOption from './BlogTextOption/BlogTextOption'
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 
 class PostModal extends PureComponent {
   state = {
@@ -10,7 +12,19 @@ class PostModal extends PureComponent {
     background: '#454553',
     imageUrlToGallery: [],
     showGallery: false,
-    galleryBtnValue:'Zobacz galerię'
+    galleryBtnValue:'Zobacz galerię',
+    fontSize: 14
+  }
+  componentDidMount(){
+    
+    const array = [1,2,3,4,5]
+    const res = Math.min(...array);
+    console.log(res)
+    
+  }
+
+  ret = (str) => {
+    return Math.max(0, Math.min(10, str))
   }
 
   showPostDetails = () => {
@@ -24,6 +38,7 @@ class PostModal extends PureComponent {
   }
 
   handlePosition = () => {
+    
     let scroller = this.refs.content;
     let height = scroller.clientHeight;
     let scrollHeight = scroller.scrollHeight - height;
@@ -54,23 +69,57 @@ class PostModal extends PureComponent {
 
     const imagesUrl = allImagesToArray.map( image => {
       return image.src;
-    })
+    }) 
 
     this.setState({imageUrlToGallery: imagesUrl, showGallery: true})
   }
 
+  enlargeFont = () => {
+    if(this.state.fontSize === 20)return;
+
+    const paragraph = [...this.refs.content.querySelectorAll("p")];
+    const fontSize = this.state.fontSize;
+    this.setState({fontSize: fontSize+1});
+
+    paragraph.forEach( paragraph => {
+      paragraph.style.fontSize = `${fontSize+1}px`;
+    })
+
+  }
+
+  decreaseFont = () => {
+    if(this.state.fontSize === 12)return;
+
+    const paragraph = [...this.refs.content.querySelectorAll("p")];
+    const fontSize = this.state.fontSize;
+    this.setState({fontSize: fontSize-1});
+
+    paragraph.forEach( paragraph => {
+      paragraph.style.fontSize = `${fontSize-1}px`;
+    })
+    
+  }
+
+  
   render() {
+
+    const transitionOption = {
+      transitionName: "fade",
+      transitionEnterTimeout: 500,
+      transitionLeaveTimeout: 400
+    };
 
     const { title, body, imgUrl, createdAt, category} = this.props;
 
     return (
-      <div className={classes.PostModal}>
+      <article className={classes.PostModal}>
         <div className={classes.PostButton}>
             <i className="fas fa-arrow-right" onClick={this.showPostDetails}></i>
+            <button onClick={this.showPostDetails}>Przejdź do bloga</button>
         </div>
         <div className={classes.PostInformation}>
             <div className={classes.PostMainInformation}>
-              <h1>{title}</h1>
+              <header>{title}</header>
               <img src={`https://media.graphcms.com/${imgUrl}`} alt={title}/>
             </div>
             <div className={classes.SocialContainer}>
@@ -78,23 +127,28 @@ class PostModal extends PureComponent {
               <span>Dodano: {createdAt.slice(0,10)}</span>
             </div>
         </div>
-        {this.state.showPost ? 
-          <div className={classes.PostDetails}>
-              <div className={classes.PostDetails_1} style={{background: this.state.background}}>
-                <h1>{title}</h1>
-                <img src={`https://media.graphcms.com/${imgUrl}`} alt={title}/>
-              </div>
-              <div className={classes.PostDetails_2} onScroll={this.handlePosition} ref="content">
-                <button onClick={this.hidePostDetails}>X</button>
-                {this.state.showGallery ? <Gallery closeGallery={()=>this.setState({showGallery: false})} imageUrlToGallery={[...this.state.imageUrlToGallery]}/> : null}
-                <Markdown>
-                  {body}
-                </Markdown>
-                <h1 onClick={this.fetchImgUrl}>{this.state.galleryBtnValue}</h1>
-              </div>
-          </div> : null
-        }
-      </div>
+        <ReactCSSTransitionGroup {...transitionOption}>
+          {this.state.showPost ? 
+            <div className={classes.PostDetails}>
+                <div className={classes.PostDetails_1} style={{background: this.state.background}}>
+                  <header style={{color: '#FFF'}}>{title}</header>
+                  <img src={`https://media.graphcms.com/${imgUrl}`} alt={title}/>
+                </div>
+                <article className={classes.PostDetails_2} onScroll={this.handlePosition} ref="content">
+                  <button onClick={this.hidePostDetails}>X</button>
+                  {this.state.showGallery ? 
+                    <Gallery closeGallery={()=>this.setState({showGallery: false})} imageUrlToGallery={[...this.state.imageUrlToGallery]}/> 
+                  : null}
+                  <Markdown>
+                    {body}
+                  </Markdown>
+                  <button style={{background: "none", position: 'inherit', color: '#4c4c4c', width: '100%', padding: '10px'}} onClick={this.fetchImgUrl}>{this.state.galleryBtnValue}</button>
+                </article>
+                <BlogTextOption background={this.state.background} enlargeFont={this.enlargeFont} decreaseFont={this.decreaseFont}/>
+            </div> : null
+          }
+        </ReactCSSTransitionGroup>
+      </article>
     )
   }
 }

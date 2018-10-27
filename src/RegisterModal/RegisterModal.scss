@@ -1,0 +1,257 @@
+$first-color: #4bebc7;
+$second-color: #49cbd9;
+
+.RegisterModal{
+    position: fixed;
+    top:0;
+    left:0;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+    background: rgba(255, 255, 255, .25);
+    animation: fadeInDown;
+    animation-duration: 1.25s;
+    padding: 15px;
+    box-sizing: border-box;
+    .LoginFormContainer{
+        width: 400px;
+        height: 480px;
+        background-image: linear-gradient(to bottom right, $first-color, $second-color);
+        border-top-right-radius: 5px;
+        border-bottom-right-radius: 5px;
+        box-shadow: 0px 0px 15px #4c4c4c;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        div{
+            width: 80%;
+            height: auto;
+            display: flex;
+            flex-direction: column;
+            h1{
+                font-weight: 400;
+            }
+            p{
+                font-size: 12px;
+                text-align: justify;
+                text-align-last: center;
+                line-height: 1.5;
+                color: #FFF;
+            }
+            button{
+                padding: 10px;
+                border-radius: 20px;
+                border: none;
+                background: none;
+                color: #FFF;
+                font-weight: bold;
+                font-size: 11px;
+                margin-top: 10px;
+                font-weight: 300;
+                cursor: pointer;
+                outline: none;
+            }
+            h1{
+                color: #FFF;
+            }
+            .LoginForm{
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                margin-top: 15px;
+                input{
+                    background: none;
+                    outline: none;
+                    border: none;
+                    border-bottom: 1px solid #FFF;
+                    padding: 5px;
+                    color: #FFF;
+                    font-size: 12px;
+                    margin-top: 5px;
+                }
+                input::placeholder{
+                    color: #FFF;
+                    font-size: 12px;
+                    letter-spacing: .25px;
+                }
+            }
+        }
+    }
+    .RegisterModalForm{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 400px;
+        height: 500px;
+        background: #FFF;
+        border-radius: 5px;
+        box-shadow: 0px 0px 15px rgb(76, 76, 76);
+        z-index: 2;
+        .Rules{
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            label{
+                padding: 0px;
+                color: #b7b7b7;
+            }
+            input{
+                width: 15px;
+                height: 15px;
+                margin-left: 5px;
+                &::before{
+                    cursor: pointer;
+                    content: "";
+                    display: inline-block;
+                    vertical-align: text-top;
+                    width: 15px;
+                    height: 15px;
+                    background: #ffffff;
+                    border: 1px solid #b7b7b7;
+                    border-radius: 3px;
+                }
+                &:checked::after{
+                    cursor: pointer;
+                    content: "\2714";
+                    font-size: 12px;
+                    position: relative;
+                    color: #b7b7b7;
+                    top: -17px;
+                    left: 3px;
+                }
+            }
+        }
+        header{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            button{
+                height: 50px;
+                width: 50px;
+                border: none;
+                outline: none;
+                font-weight: bold;
+                background: rgba(76, 76, 76, .75);
+                color: #FFF;
+                cursor: pointer;
+                transition: .25s all ease-in-out;
+                &:hover{
+                    background: rgba(76, 76, 76, .7);
+                }
+            }
+            span{
+                margin-left: 20px;
+                font-size: 25px;
+            }
+        }
+        form{
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            align-items: center;
+            height: 75%;
+            div{
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                width: 100%;
+            }
+            label{
+                font-weight: bold;
+                font-size: 12px;
+                padding: 15px 0px 0px 0px;
+                font-weight: 500;
+                color: #b7b7b7;
+            }
+            input{
+                width: 80%;
+                height: 30px;
+                border: none;
+                outline: none;
+                padding-left: 5px;
+                transition: .5s all ease-in-out;
+                background: #FFF;
+                font-size: 12px;
+            }
+            button{
+                border: none;
+                outline: none;
+                width: 50%;
+                height: 35px;
+                border-radius: 20px;
+                font-weight: bold;
+                background:rgba(76, 76, 76, .75);
+                color: #FFF;
+                font-weight: 300;
+                transition: .25s all ease-in-out;
+                font-size: 12px;
+                cursor: pointer;
+                &:hover{
+                    background: rgba(76, 76, 76, .7);
+                }
+            }
+        }
+    }
+    .RegisterStatus{
+        position: relative;
+        height: 6px;
+        background: $second-color;
+        transition-duration: .5s;
+        border-bottom-left-radius: 5px;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        flex-direction: row-reverse;
+        justify-content: space-between;
+        div{
+            background: #FFF;
+            border-radius: 50%;
+            width: 25px;
+            height: 25px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0px 0px 15px #4c4c4c;
+            i{
+                color: $first-color;
+                font-size: 30px;
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 586px) {
+    .RegisterModal{
+        padding: 0px;
+        .RegisterModalForm{
+            width: 100%;
+            height: 100%;
+            border-radius: 0px;
+        }
+        .LoginFormContainer{
+            display: none;
+        }
+        .RegisterStatus{
+            display: none;
+        }
+    }
+}
+
+@keyframes fadeInDown {
+    from {
+      opacity: 0;
+      -webkit-transform: translate3d(0, -100%, 0);
+      transform: translate3d(0, -100%, 0);
+    }
+  
+    to {
+      opacity: 1;
+      -webkit-transform: translate3d(0, 0, 0);
+      transform: translate3d(0, 0, 0);
+    }
+}

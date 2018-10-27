@@ -6,15 +6,17 @@ import PostModal from '../PostModal/PostModal';
 import Spinner from '../Spinner/Spinner';
 import Search from '../Search/Search';
 import ScrollToTop from '../ScrollToTop/ScrollToTop';
+import classes from './Posts.scss'
+import _ from '../../src/utilities'
 
 
 const client = new ApolloClient({
-    uri: `https://api-euwest.graphcms.com/`
+    uri: `https://api-euwest.graphcms.com/v1/cjmq0c0it4qdb01cu2gmqnyts/master`
 })
 
 const POSTS_QUERY = gql`
     {
-      posts {
+      posts(orderBy: createdAt_DESC){
         createdAt
         id
         title
@@ -43,43 +45,61 @@ const BOOK_QUERY = gql`
 
 class Posts extends Component {
     state = {
-        searchTerm: ''
-    }
-
-    // componentDidMount(){
-    //     client.query({
-    //       query: POSTS_QUERY
-    //     }).then( ({data: {posts}}) => {
-    //       const fetchedPosts = posts;
-    //         console.log(fetchedPosts)
-    //         this.setState({fetchedPosts})
-    //       fetchedPosts.forEach(({body, id}) => {
-    //         console.log(body, id)
-    //       })
-    //     })
-    // }
-
-    scrollToTop = () => {
-        window.scrollTo({
-            top: 0, 
-            behavior: 'smooth'
-        })
+        searchTerm: '',
+        category: '',
+        categories: [],
+        fillteredCategories: []
     }
     
+    componentDidMount(){
+        client.query({
+          query: POSTS_QUERY
+        })
+        .then( ({data: {posts}}) => {
 
+            const fetchedPosts = posts;
+            const categories = [];
+
+            fetchedPosts.forEach( ({category}) => {categories.push(category)})
+            this.setState({categories})
+        })
+        .then( ()=> {
+            const categories = [...this.state.categories];
+            const fillteredCategories = this.remove_duplicate_from_arr(categories);
+            this.setState({fillteredCategories})
+        })
+
+    }
+
+    remove_duplicate_from_arr = arr => {
+        let s = new Set(arr);
+        let it = s.values();
+        return Array.from(it);
+    }
+    
+    
     render() {
+        let categories = this.state.fillteredCategories.map( category => {
+            return <button key={category} onClick={()=> this.setState({category})}>{category}</button>
+        })
         return (
             <React.Fragment>
                 <Search searchTerm={e=>this.setState({searchTerm:e.target.value})}/>
-
+                <div className={classes.CategoryBox} ref="category">
+                    <button onClick={()=> this.setState({category: ''})}>Wszystkie</button>
+                    {categories}
+                </div>
                 <ApolloProvider client={client}>
                     <Query query={POSTS_QUERY}>
                         {({ loading, data }) => {
                             if (loading) return <Spinner/>
                             const { posts } = data;
                             return posts
-                            .filter( post => {
-                                return post.title.toLowerCase().indexOf(this.state.searchTerm.toLowerCase()) !== -1;
+                            .filter( ({title}) => {
+                                return title.toLowerCase().indexOf(this.state.searchTerm.toLowerCase()) !== -1;
+                            })
+                            .filter( ({category}) => {
+                                return category.toLowerCase().indexOf(this.state.category.toLowerCase()) !== -1;
                             })
                             .map( (post , index) =>
                             <PostModal
@@ -105,7 +125,7 @@ class Posts extends Component {
                             }}
                         </Query>
                     </div> */}
-                    <ScrollToTop scrollToTop={this.scrollToTop}/>
+                    <ScrollToTop/>
                 </ApolloProvider>
             </React.Fragment>
         );

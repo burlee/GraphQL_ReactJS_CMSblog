@@ -3,6 +3,7 @@ import classes from './Navigation.scss'
 import { NavLink, Route, Switch } from 'react-router-dom';
 import Posts from '../Posts/Posts';
 import Home from '../Home/Home';
+import CV from '../CV/CV';
 
 export default class Navigation extends Component {
     render() {
@@ -17,6 +18,7 @@ export default class Navigation extends Component {
                 <Switch>
                     <Route path='/' exact component={Home} />
                     <Route path='/posts' component={Posts} />
+                    <Route path='/cv' component={CV} />
                 </Switch>
             </React.Fragment>
         )

@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import classes from './App.scss'
 import Navigation from './Navigation/Navigation';
-
-
+import {withRouter} from 'react-router-dom'
 
 // client.query({
 //   query: test
@@ -15,6 +14,22 @@ import Navigation from './Navigation/Navigation';
 // })
 
 class App extends Component {
+  
+  componentDidMount(){
+    window.addEventListener('popstate', this.handleOnUrlChange, false)
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('popstate', this.handleOnUrlChange, false)
+  }
+
+  
+  handleOnUrlChange = () => {
+    if(this.props.location.pathname === '/posts' || this.props.location.pathname === '/'){
+      document.body.style.overflow = "visible";
+    }
+  }
+
   render() {
     return (
       <React.Fragment>
@@ -26,4 +41,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default withRouter(App);

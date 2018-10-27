@@ -1,0 +1,29 @@
+.CategoryBox{
+    width: 100%;
+    padding: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    button{
+        cursor: pointer;
+        outline: none;
+        border: none;
+        padding: 5px;
+        margin: 5px;
+        font-size: 12px;
+        background: none;
+        border: 1px solid #a4a4a4;
+        color: #a4a4a4;
+        border-radius: 3px;
+    }
+}
+
+@media only screen and (max-width: 620px) {
+    .CategoryBox{
+        flex-direction: column;
+        button{
+            width: 100%;
+        }
+    }
+}

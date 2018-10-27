@@ -53,13 +53,12 @@ $second-color: #4c4c4c;
             overflow-x: auto;
             display: block;
             a{
-                color: #4c4c4c;
+                color: #4d7db7;
                 text-decoration: none;
-                font-weight: bold;
             }
             img{
-                max-width: 100%;
-                margin: 0 auto;
+                max-width: 80%;
+                margin: 20px auto;
                 display: block;
             }
             p{
@@ -84,14 +83,11 @@ $second-color: #4c4c4c;
             }
             h1{
                 text-align: center;
-                cursor: pointer;
-                padding: 5px;
-                background: #ebebeb;
+                padding: 5px 0px;
                 border-radius: 1px;
-                font-size: 14px;
+                font-size: 18px;
                 font-weight: bold;
                 color: #4c4c4c;
-                margin-top: 10px;
             }
         }
         h1{
@@ -112,6 +108,9 @@ $second-color: #4c4c4c;
         i{
             font-size: 40px;
             color: #FFF;
+        }
+        button{
+            display: none;
         }
     }
     .PostInformation{
@@ -163,10 +162,35 @@ $second-color: #4c4c4c;
     }
 }
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 620px) {
     .PostModal {
         width: 90%;
-        height: 50vh;
+        height: auto;
+        display: flex;
+        flex-direction: column-reverse;
+        justify-content: space-between;
+        .PostButton{
+            width: 100%;
+            margin-top: 10px;
+            padding: 5px;
+            background: none;
+            border-top: 1px solid rgba(76, 76, 76, .2);
+            cursor: inherit;
+            i{
+                display: none;
+            }
+            button{
+                display: block;
+                font-size: 14px;
+                font-weight: bold;
+                background: none;
+                outline: none;
+                border: none;
+                color: #4c4c4c;
+                padding: 10px;
+                cursor: pointer;
+            }
+        }
         .PostDetails{
             flex-direction: column;
             .PostDetails_2{

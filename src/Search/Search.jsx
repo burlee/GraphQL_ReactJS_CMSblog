@@ -16,15 +16,20 @@ class Search extends Component {
 
   handleScroll = () => {
     let posY = window.scrollY;
-    if(posY >= 100){
+
+    if(posY >= 80){
       this.setState({position: 'fixed'})
-    }else{
-      this.setState({position: 'inherit'})
-    }
+    }else{this.setState({position: 'inherit'})}
+    
+  }
+
+  redirectToTest = () => {
+    window.open('https://javascriptquiz-f9a08.firebaseapp.com/','_blank');
   }
 
   render() {
     const { searchTerm } = this.props;
+    
     return (
       <div className={classes.Search} style={{position: this.state.position}}>
         <DebounceInput
@@ -35,7 +40,7 @@ class Search extends Component {
           />
         <div>
           <i className="fab fa-facebook-f"></i>
-          <i className="fab fa-github-square"></i>
+          <a href="https://github.com/burlee"><i className="fab fa-github-square"></i></a>
         </div>
       </div>
     )
